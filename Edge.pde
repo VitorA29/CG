@@ -24,8 +24,7 @@ class Edge {
     float teta = radians(120);
     A.project(teta);
     B.project(teta);
-    fill(204, 102, 0);
-    line(A.x, A.y, A.z, B.x, B.y, B.z);
+    //line(A.x, A.y, A.z, B.x, B.y, B.z);
     A.sub(center);
     B.sub(center);
   }
