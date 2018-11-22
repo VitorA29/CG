@@ -1,5 +1,6 @@
 class Face{
   public Edge[] edges;
+  public PShape shape;
   
   public Face(Edge[] edges){
     this.edges = edges;
@@ -51,9 +52,22 @@ class Face{
     return new Face(edgesArray);
   }
   
+  public void inic(){
+     shape = createShape();
+     shape.beginShape();
+     for(int i = 0; i < edges.length; i++){
+         shape.vertex(edges[i].A.x, edges[i].A.y);
+     }
+     shape.endShape(CLOSE);
+    
+  }
+  
   public void draw(Vertex center){
     for(int i=0; i<edges.length; i++){
       edges[i].draw(center);
     }
+    this.inic();
+    //shape.fill();
+    shape(shape);
   }
 }
