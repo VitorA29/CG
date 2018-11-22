@@ -1,0 +1,200 @@
+float[][] matrix;
+int points;
+float size;
+float[] center;
+float teta;
+float[] vel;
+float omega;
+int frames_per_sec = 30;
+
+//Defining windows consts
+int[] window = { 800, 600 };
+
+int[] auraWindow = { 100, 100 };
+
+//Aura Coordenates
+float[] origin = {50,50};
+float[] destiny = { 0, 100};
+
+//Animation Controller
+int elapsed_frames;
+int max_frames = 5*frames_per_sec;
+
+void applyAura(){
+  // Transforming X
+  origin[0] = (origin[0]*window[0])/auraWindow[0];
+  destiny[0] = (destiny[0]*window[0])/auraWindow[0];
+  
+  //Transforming Y
+  origin[1] = (origin[1]*(-window[1]))/auraWindow[1] + window[1];
+  destiny[1] = (destiny[1]*(-window[1]))/auraWindow[1] + window[1];
+}
+
+void applyRotation(float teta){
+  float[][] rotationMatrix = new float[4][4];
+  rotationMatrix[0][0] = cos(teta);
+  rotationMatrix[0][1] = sin(teta);
+  rotationMatrix[0][2] = 0;
+  rotationMatrix[0][3] = 0;
+  rotationMatrix[1][0] = -sin(teta);
+  rotationMatrix[1][1] = cos(teta);
+  rotationMatrix[1][2] = 0;
+  rotationMatrix[1][3] = 0;
+  rotationMatrix[2][0] = 0;
+  rotationMatrix[2][1] = 0;
+  rotationMatrix[2][2] = 1;
+  rotationMatrix[2][3] = 0;
+  rotationMatrix[3][0] = 0;
+  rotationMatrix[3][1] = 0;
+  rotationMatrix[3][2] = 0;
+  rotationMatrix[3][3] = 1;
+  
+  float[] auxVector = new float [4];
+  for(int p=0;p<points*2;p++){
+    for(int i=0;i<4;i++){
+      auxVector[i] = rotationMatrix[i][0]*matrix[p][0] + rotationMatrix[i][1]*matrix[p][1] + rotationMatrix[i][2]*matrix[p][2] + rotationMatrix[i][3]*matrix[p][3];
+    }
+    matrix[p][0] = auxVector[0];
+    matrix[p][1] = auxVector[1];
+    matrix[p][2] = auxVector[2];
+    matrix[p][3] = auxVector[3];
+  }
+}
+
+void setup(){
+  size(800, 600, P3D);
+  elapsed_frames = 0;
+  
+  applyAura();
+  
+  points = 11;
+  size = 25;
+  teta = PI/3;
+  vel = new float[2];
+  //vel[0] = (size)/frames_per_sec;
+  vel[0]=(destiny[0]-origin[0])/max_frames;
+  vel[1]=(destiny[1]-origin[1])/max_frames;
+  omega = (PI/2)/max_frames;
+  
+  float base = size/2;
+  
+  //Object Contruction
+  matrix = new float[points*2][4];
+  matrix[0][0] = 0;
+  matrix[0][1] = 0;
+  matrix[0][2] = -base/2;
+  matrix[0][3] = 1;//coordenada homogenea
+  matrix[1][0] = 3*size;
+  matrix[1][1] = 0;
+  matrix[1][2] = -base/2;
+  matrix[1][3] = 1;
+  matrix[2][0] = 3*size;
+  matrix[2][1] = base;
+  matrix[2][2] = -base/2;
+  matrix[2][3] = 1;
+  matrix[3][0] = 2*size;
+  matrix[3][1] = base;
+  matrix[3][2] = -base/2;
+  matrix[3][3] = 1;
+  matrix[4][0] = 2*size;
+  matrix[4][1] = 4*size;
+  matrix[4][2] = -base/2;
+  matrix[4][3] = 1;
+  //A
+  matrix[5][0] = size;
+  matrix[5][1] = 4*size;
+  matrix[5][2] = -base/2;
+  matrix[5][3] = 1;
+  //B
+  float noseSize = size*1.1;
+  matrix[6][0] = matrix[5][0]-noseSize*sin(teta);
+  matrix[6][1] = matrix[5][1]-noseSize*cos(teta);
+  matrix[6][2] = -base/2;
+  matrix[6][3] = 1;
+  //C
+  matrix[7][0] = matrix[6][0]+size*cos(teta);
+  matrix[7][1] = matrix[6][1]-size*sin(teta);
+  matrix[7][2] = -base/2;
+  matrix[7][3] = 1;
+  //D 
+  matrix[8][0] = size;
+  matrix[8][1] = matrix[7][1] + (size - matrix[7][0])/tan(teta);
+  matrix[8][2] = -base/2;
+  matrix[8][3] = 1;
+  
+  matrix[9][0] = size;
+  matrix[9][1] = base;
+  matrix[9][2] = -base/2;
+  matrix[9][3] = 1;
+  matrix[10][0] = 0;
+  matrix[10][1] = base;
+  matrix[10][2] = -base/2;
+  matrix[10][3] = 1;
+ 
+  //Y-Axis Correction
+  for(int i=0;i<points;i++){
+    matrix[i][1] = 4*size - matrix[i][1];
+  }
+  
+  //Center definition
+  center = new float[4];
+  center[0] = 1.5*size;
+  center[1] = (3+0.5)*size/2;
+  center[2] = 0;
+  center[3] = 1;
+  
+  //Object referential alteration
+  for(int i=0;i<points;i++){
+    matrix[i][0] = matrix[i][0] - center[0];
+    matrix[i][1] = matrix[i][1] - center[1];
+    matrix[i][2] = matrix[i][2] - center[2];
+  }
+  
+  //creating other face
+  for(int i=0;i<points;i++){
+    matrix[points + i][0] = matrix[i][0];
+    matrix[points + i][1] = matrix[i][1];
+    matrix[points + i][2] = matrix[i][1] + base;
+    matrix[points + i][3] = 1;
+  } 
+  
+  //Centering object in screean
+  center[0] = origin[0];
+  center[1] = origin[1];
+}
+
+void drawNumber(){
+  noFill();
+  beginShape();
+  for(int i=0;i<points;i++){
+    vertex(matrix[i][0] + center[0], matrix[i][1] + center[1], matrix[i][2] + center[2]);
+  }
+  endShape(CLOSE);
+  
+  beginShape();
+  for(int i=0;i<points;i++){
+    vertex(matrix[points + i][0] + center[0], matrix[points + i][1] + center[1], matrix[points + i][2] + center[2]);
+  }
+  endShape(CLOSE);
+  
+  for(int i=0;i<points;i++){
+    line(matrix[i][0] + center[0], matrix[i][1] + center[1], matrix[i][2] + center[2], matrix[points + i][0] + center[0], matrix[points + i][1] + center[1], matrix[points + i][2] + center[2]);
+  }
+}
+
+void draw(){
+  if(elapsed_frames<=max_frames){
+    background(255);
+    drawNumber();
+    //ERICK: comentado a parte que movimenta a imagem a fim de efetuar a primeira entrega (12/09)
+    //ellipse(center[0],center[1], center[2],5,5,5); // --> que bagulho feio
+    
+    center[0]+=vel[0];
+    center[1]+=vel[1];
+    //if((center[0]>=width-size*2) || (center[0]<=size*2))vel= -vel;
+    
+    applyRotation(omega);
+    
+    elapsed_frames++;
+  }
+}
