@@ -127,17 +127,17 @@ void setup(){
   
   um = new CgObject(F, center, base);
   observer = new Vertex(origin[0], origin[1], 100);
+  um.draw(observer.truePoints());
 }
 
 void draw(){
   //if(elapsed_frames<=max_frames){
     background(255);
     um.draw(observer.truePoints());
-    //um.draw();
-    //fill(0,0,0);
-    //ellipse(observer.x, observer.y, 5, 5);
-    //fill(255,0,0);
-    //ellipse(center.x, center.y, 5, 5);
+    fill(0,0,0);
+    ellipse(observer.x, observer.y, 5, 5);
+    fill(255,0,0);
+    ellipse(center.x, center.y, 5, 5);
     //ERICK: comentado a parte que movimenta a imagem a fim de efetuar a primeira entrega (12/09)
     //ellipse(center[0],center[1], center[2],5,5,5); // --> que bagulho feio
     

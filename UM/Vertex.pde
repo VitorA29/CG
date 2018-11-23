@@ -30,7 +30,7 @@ class Vertex{
     project();
   }
   
-  public void project(){
+  private void project(){
     buildProjMatrix();
     x = vec.dot(projMatrix[0]);
     y = vec.dot(projMatrix[1]);

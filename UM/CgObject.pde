@@ -39,25 +39,27 @@ class CgObject{
     this.faces = faces;
   }
   
-  public void draw(int i, PVector observer){
-    faces[i].draw(center);
-    //fill(204, 102, 0);
-    println(faces[i].normal(center, observer));
-  }
-  
-  // num 1
+  // num 1 OK
   public void draw(){
     for(int i=0; i<faces.length; i++){
       faces[i].draw(center);
     }
   }
   
-  // num 2
+  // num 2 OK
   public void draw(PVector observer){
     for(int i=0; i<faces.length; i++){
-      if(faces[i].normal(center, observer)>0)
+      if(faces[i].normal(center, observer)>0){
         faces[i].draw(center);
+      }
     }
+  }
+  
+  public void draw(int i, PVector observer){
+    faces[i].draw(center);
+    Vertex normal = new Vertex(faces[i].getNormal(center).get("normal"));
+    print("normal - "+faces[i].normal(center, observer) + " - ");
+    normal.printVertex();
   }
   
   // num 3
