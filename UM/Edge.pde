@@ -9,9 +9,13 @@ class Edge {
   
   public void printEdge(){
     print("A - ");
+    A.add(center);
     A.printVertex();
+    A.sub(center);
     print("B - ");
+    B.add(center);
     B.printVertex();
+    B.sub(center);
   }
   
   public Edge clone(){
@@ -21,10 +25,7 @@ class Edge {
   public void draw(Vertex center){
     A.add(center);
     B.add(center);
-    float teta = radians(120);
-    A.project(teta);
-    B.project(teta);
-    //line(A.x, A.y, A.z, B.x, B.y, B.z);
+    line(A.x, A.y, A.z, B.x, B.y, B.z);
     A.sub(center);
     B.sub(center);
   }

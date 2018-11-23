@@ -124,17 +124,15 @@ void setup(){
   
   //Centering object in screean
   center = new Vertex( origin[0], origin[1] );
-  center.project(radians(120));
   
   um = new CgObject(F, center, base);
   observer = new Vertex(origin[0], origin[1], 100);
-  observer.project(radians(120));
 }
 
 void draw(){
   //if(elapsed_frames<=max_frames){
     background(255);
-    um.draw();
+    um.draw(observer.truePoints());
     //um.draw();
     //fill(0,0,0);
     //ellipse(observer.x, observer.y, 5, 5);

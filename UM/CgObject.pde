@@ -45,17 +45,27 @@ class CgObject{
     println(faces[i].normal(center, observer));
   }
   
+  // num 1
   public void draw(){
     for(int i=0; i<faces.length; i++){
       faces[i].draw(center);
     }
   }
   
+  // num 2
   public void draw(PVector observer){
-    //float intern = (faces[i].normal(center, observer)
     for(int i=0; i<faces.length; i++){
       if(faces[i].normal(center, observer)>0)
         faces[i].draw(center);
+    }
+  }
+  
+  // num 3
+  public void drawAndPaint(PVector observer){
+    //float intern = (faces[i].normal(center, observer)
+    for(int i=0; i<faces.length; i++){
+      if(faces[i].normal(center, observer)>0)
+        faces[i].drawAndPaint();
     }
   }
 }
