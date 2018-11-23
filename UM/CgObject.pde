@@ -64,11 +64,12 @@ class CgObject{
   }
   
   // num 3
-  public void drawAndPaint(PVector observer){
+  public void drawAndPaint(PVector observer, Vertex light){
     //float intern = (faces[i].normal(center, observer)
+    colorMode(HSB);
     for(int i=0; i<faces.length; i++){
       if(faces[i].normal(center, observer)>0)
-        faces[i].drawAndPaint();
+        faces[i].drawAndPaint(center, light);
     }
   }
 }
