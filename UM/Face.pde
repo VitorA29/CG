@@ -53,7 +53,9 @@ class Face{
      shape = createShape();
      shape.beginShape();
      for(int i = 0; i < edges.length; i++){
+         edges[i].A.add(center);
          shape.vertex(edges[i].A.x, edges[i].A.y);
+         edges[i].A.sub(center);
      }
      shape.endShape(CLOSE);
     
@@ -66,8 +68,14 @@ class Face{
   }
   
   public void drawAndPaint(){
-    this.inic();
-    //shape.fill();
+    this.inic(center);
+    edges[0].A.add(center);
+    PVector aux = new PVector(edges[0].A.x - light.x, edges[0].A.y - light.y, edges[0].A.z - light.z);
+    aux.normalize();
+    println("normal " + this.normal(center, aux));
+    shape.setFill(color(255, 255, (this.normal(center, aux) * 255)/ 10000 ));
+  
+    edges[0].A.sub(center);
     shape(shape);
   }
 }
