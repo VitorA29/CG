@@ -57,7 +57,7 @@ class Face{
     //ellipse(edges[1].B.x, edges[1].B.y, 5, 5);
     PVector normal = v1.cross( v2 );
     normal.y = -normal.y;
-    HashMap<String, PVector> map = new HashMap<>();
+    HashMap<String, PVector> map = new HashMap<String, PVector>();
     map.put("normal", normal);
     map.put("center", centerHolder);
     return map;
