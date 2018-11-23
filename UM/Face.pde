@@ -31,9 +31,6 @@ class Face{
     edges[0].A.sub(center);
     edges[0].B.sub(center);
     edges[1].B.sub(center);
-    if(normal.z == 0){
-     normal.mult(-1);
-    }
     HashMap<String, PVector> map = new HashMap<String, PVector>();
     map.put("normal", normal);
     map.put("center", centerHolder);

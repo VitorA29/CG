@@ -28,7 +28,8 @@ class CgObject{
     faceList.add(face);
     for(int i=0; i<face.edges.length; i++){
       Edge edgeHelper = copyFace.edges[copyFace.edges.length - 1 - i];
-      Edge[] newEdges = { edgeHelper, new Edge(edgeHelper.B, face.edges[i].A), face.edges[i], new Edge(face.edges[i].B, edgeHelper.A)};
+      Edge[] newEdges = { new Edge(face.edges[i].B, face.edges[i].A), new Edge(face.edges[i].A, edgeHelper.B),
+                            new Edge(edgeHelper.B, edgeHelper.A), new Edge(edgeHelper.A, face.edges[i].B)};
       faceList.add(new Face(newEdges));
     }
     faceList.add(copyFace);

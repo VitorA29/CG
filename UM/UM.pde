@@ -127,7 +127,6 @@ void setup(){
   
   um = new CgObject(F, center, base);
   observer = new Vertex(origin[0], origin[1], 100);
-  um.draw(observer.truePoints());
 }
 
 void draw(){
