@@ -12,8 +12,7 @@ class Face{
       edges[i].printEdge();
     }
   }
-  //ERICK: retornar o vetor normal e calcular o produto dessas normais com o vetor observador
-  //esquce, finalmente entendi qq tu t afazendo e que dot é o produto interno dessa palhaçada.
+  
   public float normal(Vertex center, PVector out){
     HashMap<String, PVector> map = getNormal(center);
     PVector link = PVector.sub( out, map.get("center") );
@@ -49,7 +48,7 @@ class Face{
     return new Face(edgesArray);
   }
   
-  public void inic(){
+  public void inic(Vertex center){
      shape = createShape();
      shape.beginShape();
      for(int i = 0; i < edges.length; i++){
@@ -67,15 +66,20 @@ class Face{
     }
   }
   
-  public void drawAndPaint(){
+  public void drawAndPaint(Vertex center, Vertex light){
     this.inic(center);
-    edges[0].A.add(center);
-    PVector aux = new PVector(edges[0].A.x - light.x, edges[0].A.y - light.y, edges[0].A.z - light.z);
+    HashMap<String, PVector> map = this.getNormal(center);
+    PVector normal = map.get("normal");
+    normal.normalize();
+    PVector lightHolder = light.truePoints();
+    PVector aux = PVector.sub( lightHolder, map.get("center") );
     aux.normalize();
-    println("normal " + this.normal(center, aux));
-    shape.setFill(color(255, 255, (this.normal(center, aux) * 255)/ 10000 ));
-  
-    edges[0].A.sub(center);
+    float escalarValue = normal.dot(aux);
+    float colorValue = escalarValue * 255;
+    colorValue = abs(colorValue);
+    println(escalarValue + " - " + colorValue);
+    shape.setFill(color(255, 255, (colorValue) ));
+    //shape.setStroke(false);
     shape(shape);
   }
 }

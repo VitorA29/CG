@@ -1,5 +1,6 @@
 CgObject um;
 Vertex observer;
+Vertex light;
 int points;
 float size;
 Vertex center;
@@ -29,26 +30,6 @@ void applyAura(){
   //Transforming Y
   origin[1] = (origin[1]*(-window[1]))/auraWindow[1] + window[1];
   destiny[1] = (destiny[1]*(-window[1]))/auraWindow[1] + window[1];
-}
-
-void applyRotation(float teta){
-  float[][] rotationMatrix = new float[4][4];
-  rotationMatrix[0][0] = cos(teta);
-  rotationMatrix[0][1] = sin(teta);
-  rotationMatrix[0][2] = 0;
-  rotationMatrix[0][3] = 0;
-  rotationMatrix[1][0] = -sin(teta);
-  rotationMatrix[1][1] = cos(teta);
-  rotationMatrix[1][2] = 0;
-  rotationMatrix[1][3] = 0;
-  rotationMatrix[2][0] = 0;
-  rotationMatrix[2][1] = 0;
-  rotationMatrix[2][2] = 1;
-  rotationMatrix[2][3] = 0;
-  rotationMatrix[3][0] = 0;
-  rotationMatrix[3][1] = 0;
-  rotationMatrix[3][2] = 0;
-  rotationMatrix[3][3] = 1;
 }
 
 void setup(){
@@ -127,25 +108,20 @@ void setup(){
   
   um = new CgObject(F, center, base);
   observer = new Vertex(origin[0], origin[1], 100);
+  light = new Vertex( origin[0] + 100, origin[1]-100, 200);
+  //light = new Vertex( 200, origin[1]-100, 100);
 }
 
 void draw(){
   //if(elapsed_frames<=max_frames){
     background(255);
-    um.draw(observer.truePoints());
+    um.draw(); //Forma 1
+    //um.draw(observer.truePoints()); //Forma 2
+    //um.drawAndPaint(observer.truePoints(), light); //Forma 3
     fill(0,0,0);
-    ellipse(observer.x, observer.y, 5, 5);
-    fill(255,0,0);
-    ellipse(center.x, center.y, 5, 5);
-    //ERICK: comentado a parte que movimenta a imagem a fim de efetuar a primeira entrega (12/09)
-    //ellipse(center[0],center[1], center[2],5,5,5); // --> que bagulho feio
-    
-    //center[0]+=vel[0];
-    //center[1]+=vel[1];
-    //if((center[0]>=width-size*2) || (center[0]<=size*2))vel= -vel;
-    
-    //applyRotation(omega);
-    
-    //elapsed_frames++;
-  //}
+    //ellipse(observer.x, observer.y, 5, 5);
+    //fill(255,0,0);
+    //ellipse(center.x, center.y, 5, 5);
+    fill(255,255,255);
+    //ellipse(light.x, light.y, 5, 5);
 }
