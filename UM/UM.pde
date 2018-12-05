@@ -1,4 +1,5 @@
 CgObject um;
+Face face;
 Vertex observer;
 Vertex light;
 int points;
@@ -87,7 +88,7 @@ void setup(){
   Edge E11 = new Edge(vertexList.get(10), vertexList.get(0));
   
   Edge[] edges = { E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11 };
-  Face F = new Face( edges );
+  face = new Face( edges );
  
   //Y-Axis Correction
   for(Vertex ver : vertexList){
@@ -106,7 +107,7 @@ void setup(){
   //Centering object in screean
   center = new Vertex( origin[0], origin[1] );
   
-  um = new CgObject(F, center, base);
+  um = new CgObject(face, center, base);
   observer = new Vertex(origin[0], origin[1], 100);
   light = new Vertex( origin[0] + 100, origin[1]-100, 200);
   //light = new Vertex( 200, origin[1]-100, 100);
@@ -115,7 +116,8 @@ void setup(){
 void draw(){
   //if(elapsed_frames<=max_frames){
     background(255);
-    um.draw(); //Forma 1
+    face.drawCurve(center);
+    //um.draw(); //Forma 1
     //um.draw(observer.truePoints()); //Forma 2
     //um.drawAndPaint(observer.truePoints(), light); //Forma 3
     fill(0,0,0);

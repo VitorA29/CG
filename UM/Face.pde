@@ -66,6 +66,12 @@ class Face{
     }
   }
   
+  public void drawCurve(Vertex center){
+    for(int i=0; i<edges.length; i++){
+      edges[i].drawCurve(center);
+    }
+  }
+  
   public void drawAndPaint(Vertex center, Vertex light){
     this.inic(center);
     HashMap<String, PVector> map = this.getNormal(center);
