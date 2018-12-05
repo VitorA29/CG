@@ -116,8 +116,8 @@ void setup(){
 
 void draw(){
     background(255);
-    elapse
     if(elapsed_frames <= 0/*max_frames*/){
+      println("rotation");
       face.rotate(omega);
     }
     face.drawCurve();
