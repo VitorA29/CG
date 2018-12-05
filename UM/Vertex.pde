@@ -85,4 +85,13 @@ class Vertex{
   public PVector truePoints(){
     return vec.copy();
   }
+  
+  public void rotate(float teta){
+    Quaternio p = new Quaternio(0, this.vec);
+    PVector n = new PVector(0,0,1);
+    Quaternio q = new Quaternio(cos(teta/2), n.mult(sin(teta/2)));
+    Quaternio qConj = new Quaternio(cos(teta/2), n.mult(-sin(teta/2))); 
+    this.vec = q.prod(p).prod(qConj).getVector();
+    project();
+  }
 }

@@ -1,13 +1,11 @@
 class CgObject{
   public Face[] faces;
-  public Vertex center;
   
   public CgObject(Face[] faces){
     this.faces = faces;
   }
   
-  public CgObject(Face face, Vertex center, float depth){
-    this.center = center;
+  public CgObject(Face face, float depth){
     Face copyFace = face.mirrorFace();
     ArrayList<Vertex> vertexList = new ArrayList<Vertex>();
     for(int i=0; i<copyFace.edges.length; i++){
@@ -23,7 +21,6 @@ class CgObject{
       vertex.sub(depthVertex);
     }
     depthVertex.div(2);
-    center.sub(depthVertex);
     ArrayList<Face> faceList = new ArrayList<Face>();
     faceList.add(face);
     for(int i=0; i<face.edges.length; i++){
@@ -43,23 +40,23 @@ class CgObject{
   // num 1 OK
   public void draw(){
     for(int i=0; i<faces.length; i++){
-      faces[i].draw(center);
+      faces[i].draw();
     }
   }
   
   // num 2 OK
   public void draw(PVector observer){
     for(int i=0; i<faces.length; i++){
-      if(faces[i].normal(center, observer)>0){
-        faces[i].draw(center);
+      if(faces[i].normal(observer)>0){
+        faces[i].draw();
       }
     }
   }
   
   public void draw(int i, PVector observer){
-    faces[i].draw(center);
-    Vertex normal = new Vertex(faces[i].getNormal(center).get("normal"));
-    print("normal - "+faces[i].normal(center, observer) + " - ");
+    faces[i].draw();
+    Vertex normal = new Vertex(faces[i].getNormal().get("normal"));
+    print("normal - "+faces[i].normal(observer) + " - ");
     normal.printVertex();
   }
   
@@ -68,8 +65,8 @@ class CgObject{
     //float intern = (faces[i].normal(center, observer)
     colorMode(HSB);
     for(int i=0; i<faces.length; i++){
-      if(faces[i].normal(center, observer)>0)
-        faces[i].drawAndPaint(center, light);
+      if(faces[i].normal(observer)>0)
+        faces[i].drawAndPaint(light);
     }
   }
 }

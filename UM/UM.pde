@@ -4,9 +4,8 @@ Vertex observer;
 Vertex light;
 int points;
 float size;
-Vertex center;
+
 float teta;
-float[] vel;
 float omega;
 int frames_per_sec = 30;
 
@@ -21,7 +20,7 @@ float[] destiny = { 0, 100};
 
 //Animation Controllerm
 int elapsed_frames;
-int max_frames = 0*frames_per_sec;
+int max_frames = 1*frames_per_sec;
 
 void applyAura(){
   // Transforming X
@@ -41,11 +40,8 @@ void setup(){
   
   points = 11;
   size = 25;
+  
   teta = PI/3;
-  vel = new float[2];
-  //vel[0] = (size)/frames_per_sec;
-  vel[0]=(destiny[0]-origin[0])/max_frames;
-  vel[1]=(destiny[1]-origin[1])/max_frames;
   omega = (PI/2)/max_frames;
   
   float base = size/2;
@@ -97,7 +93,7 @@ void setup(){
   }
   
   //Center definition
-  center = new Vertex(1.5*size, (3+0.5)*size/2);
+  Vertex center = new Vertex(1.5*size, (3+0.5)*size/2);
   
   //Object referential alteration
   for(Vertex ver : vertexList){
@@ -107,16 +103,24 @@ void setup(){
   //Centering object in screean
   center = new Vertex( origin[0], origin[1] );
   
-  um = new CgObject(face, center, base);
+  //Object referential alteration
+  for(Vertex ver : vertexList){
+    ver.add(center);
+  }
+  
+  um = new CgObject(face, base);
   observer = new Vertex(origin[0], origin[1], 100);
   light = new Vertex( origin[0] + 100, origin[1]-100, 200);
   //light = new Vertex( 200, origin[1]-100, 100);
 }
 
 void draw(){
-  //if(elapsed_frames<=max_frames){
     background(255);
-    face.drawCurve(center);
+    elapse
+    if(elapsed_frames <= 0/*max_frames*/){
+      face.rotate(omega);
+    }
+    face.drawCurve();
     //um.draw(); //Forma 1
     //um.draw(observer.truePoints()); //Forma 2
     //um.drawAndPaint(observer.truePoints(), light); //Forma 3
@@ -126,4 +130,6 @@ void draw(){
     //ellipse(center.x, center.y, 5, 5);
     fill(255,255,255);
     //ellipse(light.x, light.y, 5, 5);
+    
+    elapsed_frames++;
 }
