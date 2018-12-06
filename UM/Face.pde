@@ -1,9 +1,11 @@
 class Face{
   public Edge[] edges;
   public PShape shape;
+  private PVector center;
   
-  public Face(Edge[] edges){
+  public Face(Edge[] edges, PVector center){
     this.edges = edges;
+    this.center = center;
   }
   
   public void printFace(){
@@ -39,7 +41,7 @@ class Face{
     for(int i=0; i<vertexList.size(); i++){
       edgesArray[i] = new Edge( vertexList.get(i), vertexList.get( ( ( i + 1 ) == vertexList.size() ? 0 : ( i + 1 ) ) ) );
     }
-    return new Face(edgesArray);
+    return new Face(edgesArray, center);
   }
   
   public void inic(){
@@ -80,9 +82,9 @@ class Face{
     shape(shape);
   }
   
-  public void rotate(float teta){
+  public void rotate(float theta){
     for(int i=0; i<edges.length; i++){
-      edges[i].rotate(teta);
+      edges[i].rotate(theta, center);
     }
   }
 }

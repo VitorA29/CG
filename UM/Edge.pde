@@ -27,7 +27,7 @@ class Edge {
     bezier(A.x, A.y, A.z, c1.x, c1.y, c1.z, c2.x, c2.y, c2.z, B.x, B.y, B.z);
   }
   
-  public void rotate(float teta){
-    A.rotate(teta);
+  public void rotate(float theta, PVector center){
+    A.rotate(theta, center);
   }
 }

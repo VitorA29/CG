@@ -86,11 +86,12 @@ class Vertex{
     return vec.copy();
   }
   
-  public void rotate(float teta){
+  public void rotate(float theta, PVector center){
     Quaternio p = new Quaternio(0, this.vec);
-    PVector n = new PVector(0,0,1);
-    Quaternio q = new Quaternio(cos(teta/2), n.mult(sin(teta/2)));
-    Quaternio qConj = new Quaternio(cos(teta/2), n.mult(-sin(teta/2))); 
+    PVector n = center.copy();// quebrou
+    n.normalize();
+    Quaternio q = new Quaternio(cos(theta/2), n.mult(sin(theta/2)));
+    Quaternio qConj = new Quaternio(cos(theta/2), n.mult(-sin(theta/2))); 
     this.vec = q.prod(p).prod(qConj).getVector();
     project();
   }

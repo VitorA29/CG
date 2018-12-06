@@ -62,12 +62,10 @@ void setup(){
   //C
   vertexList.add( vertexList.get(6).clone() );
   vertexList.get(7).add( size*cos(teta), -size*sin(teta) );
-  vertexList.get(7).printVertex();
   //D 
   PVector pointHelper = vertexList.get(7).truePoints();
   Vertex D = new Vertex( size, pointHelper.y + (size - pointHelper.x)/tan(teta)  );
   vertexList.add( D );
-  D.printVertex();
   vertexList.add(new Vertex( size, base ));
   vertexList.add(new Vertex( 0, base ));
   
@@ -84,7 +82,6 @@ void setup(){
   Edge E11 = new Edge(vertexList.get(10), vertexList.get(0));
   
   Edge[] edges = { E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11 };
-  face = new Face( edges );
  
   //Y-Axis Correction
   for(Vertex ver : vertexList){
@@ -108,6 +105,7 @@ void setup(){
     ver.add(center);
   }
   
+  face = new Face( edges, center.truePoints() );
   um = new CgObject(face, base);
   observer = new Vertex(origin[0], origin[1], 100);
   light = new Vertex( origin[0] + 100, origin[1]-100, 200);
@@ -118,7 +116,7 @@ void draw(){
     background(255);
     if(elapsed_frames <= 0/*max_frames*/){
       println("rotation");
-      face.rotate(omega);
+      face.rotate(PI/2);
     }
     face.drawCurve();
     //um.draw(); //Forma 1
