@@ -52,6 +52,13 @@ class Vertex{
     project();
   }
   
+  public void add(float x, float y, float z){
+    vec.x += x;
+    vec.y += y;
+    vec.z += z;
+    project();
+  }
+  
   public void sub(Vertex v){
     vec.sub(v.vec);
     project();

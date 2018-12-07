@@ -87,4 +87,15 @@ class Face{
       edges[i].rotate(theta);
     }
   }
+  
+  public Face shift(float z){
+    ArrayList<Edge> newEdges = new ArrayList<Edge>();
+    for(int i=0; i<edges.length; i++){
+      newEdges.add(edges[i].clone());
+      newEdges.get(i).A.add(0, 0, z);
+    }
+    PVector newCenter = center.copy();
+    newCenter.z += z;
+    return new Face((Edge[])newEdges.toArray(), newCenter);
+  }
 }

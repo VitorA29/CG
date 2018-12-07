@@ -1,10 +1,18 @@
 class Edge {
   public Vertex A;
   public Vertex B;
+  private Vertex[] controls;
   
   public Edge(Vertex A, Vertex B){
     this.A = A;
     this.B = B;
+    this.controls = null;
+  }
+  
+  public Edge(Vertex A, Vertex B, Vertex[] controls){
+    this.A = A;
+    this.B = B;
+    this.controls = controls;
   }
   
   public void printEdge(){
@@ -23,10 +31,13 @@ class Edge {
   }
   public void drawCurve(PVector center){
     A.add(center.x, center.y);
-    Vertex c1 = A.clone();
     B.add(center.x, center.y);
-    Vertex c2 = B.clone();
-    bezier(A.x, A.y, A.z, c1.x, c1.y, c1.z, c2.x, c2.y, c2.z, B.x, B.y, B.z);
+    if(controls != null){
+      bezier(A.x, A.y, A.z, controls[0].x, controls[0].y, controls[0].z, controls[1].x, controls[1].y, controls[1].z, B.x, B.y, B.z);
+    }
+    else{
+      line(A.x, A.y, A.z, B.x, B.y, B.z);
+    }
     A.sub(center.x, center.y);
     B.sub(center.x, center.y);
   }

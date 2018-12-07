@@ -1,3 +1,4 @@
+CgObject um;
 Face face;
 Vertex observer;
 Vertex light;
@@ -19,7 +20,7 @@ float[] destiny = { 0, 100};
 
 //Animation Controllerm
 int elapsed_frames;
-int max_frames = 1*frames_per_sec;
+int max_frames = 5*frames_per_sec;
 
 void applyAura(){
   // Transforming X
@@ -41,7 +42,7 @@ void setup(){
   size = 25;
   
   teta = PI/3;
-  omega = (PI/2)/max_frames;
+  omega = (2*PI)/max_frames;
   
   float base = size/2;
   
@@ -100,6 +101,7 @@ void setup(){
   center = new Vertex( origin[0], origin[1] );
   
   face = new Face( edges, center.truePoints() );
+  um = new CgObject(face, base);
   observer = new Vertex(origin[0], origin[1], 100);
   light = new Vertex( origin[0] + 100, origin[1]-100, 200);
   //light = new Vertex( 200, origin[1]-100, 100);
@@ -110,7 +112,7 @@ void draw(){
     if(elapsed_frames <= max_frames){
       face.rotate(omega);
     }
-    face.drawCurve();
+    face.drawWire();
     //um.draw(); //Forma 1
     //um.draw(observer.truePoints()); //Forma 2
     //um.drawAndPaint(observer.truePoints(), light); //Forma 3
