@@ -94,6 +94,10 @@ class Face{
       newEdges[i] = edges[i].clone();
       newEdges[i].A.add(0, 0, z);
       newEdges[i].B.add(0, 0, z);
+      if(newEdges[i].controls != null){
+        newEdges[i].controls[0].add(0, 0, z);
+        newEdges[i].controls[1].add(0, 0, z);
+      }
     }
     PVector newCenter = center.copy();
     newCenter.z += z;

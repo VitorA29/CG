@@ -49,41 +49,27 @@ void setup(){
   
   //Object Contruction
   ArrayList<Vertex> vertexList = new ArrayList<Vertex>();
-  vertexList.add(new Vertex( 0, 0 ));
-  vertexList.add(new Vertex( 3*size, 0 ));
-  vertexList.add(new Vertex( 3*size, base ));
-  vertexList.add(new Vertex( 2*size, base ));
-  vertexList.add(new Vertex( 2*size, 4*size ));
+  vertexList.add(new Vertex( 0, 0 ));//0
+  vertexList.add(new Vertex( 3*size, 0 ));//1
+  vertexList.add(new Vertex( 3*size, base ));//2
+  vertexList.add(new Vertex( 2*size, base ));//3
+  vertexList.add(new Vertex( 2*size, 4*size ));//4
   //A
-  vertexList.add(new Vertex( size, 4*size ));
+  vertexList.add(new Vertex( size, 4*size ));//5
   //B
   float noseSize = size*1.1;
-  vertexList.add( vertexList.get(5).clone() );
+  vertexList.add( vertexList.get(5).clone() );//6
   vertexList.get(6).sub(noseSize*sin(teta), noseSize*cos(teta) );
   //C
-  vertexList.add( vertexList.get(6).clone() );
+  vertexList.add( vertexList.get(6).clone() );//7
   vertexList.get(7).add( size*cos(teta), -size*sin(teta) );
   //D 
   PVector pointHelper = vertexList.get(7).truePoints();
-  Vertex D = new Vertex( size, pointHelper.y + (size - pointHelper.x)/tan(teta)  );
+  Vertex D = new Vertex( size, pointHelper.y + (size - pointHelper.x)/tan(teta)  );//8
   vertexList.add( D );
-  vertexList.add(new Vertex( size, base ));
-  vertexList.add(new Vertex( 0, base ));
+  vertexList.add(new Vertex( size, base ));//9
+  vertexList.add(new Vertex( 0, base ));//10
   
-  Edge E1 = new Edge(vertexList.get(0), vertexList.get(1));
-  Edge E2 = new Edge(vertexList.get(1), vertexList.get(2));
-  Edge E3 = new Edge(vertexList.get(2), vertexList.get(3));
-  Edge E4 = new Edge(vertexList.get(3), vertexList.get(4));
-  Edge E5 = new Edge(vertexList.get(4), vertexList.get(5));
-  Edge E6 = new Edge(vertexList.get(5), vertexList.get(6));
-  Edge E7 = new Edge(vertexList.get(6), vertexList.get(7));
-  Edge E8 = new Edge(vertexList.get(7), vertexList.get(8));
-  Edge E9 = new Edge(vertexList.get(8), vertexList.get(9));
-  Edge E10 = new Edge(vertexList.get(9), vertexList.get(10));
-  Edge E11 = new Edge(vertexList.get(10), vertexList.get(0));
-  
-  Edge[] edges = { E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11 };
- 
   //Y-Axis Correction
   for(Vertex ver : vertexList){
     PVector vertexHelper = ver.truePoints();
@@ -97,6 +83,29 @@ void setup(){
   for(Vertex ver : vertexList){
     ver.sub(center);
   }
+  
+  Edge E1 = new Edge(vertexList.get(0), vertexList.get(1));
+  Vertex[] controlsE2 = new Vertex[2];
+  PVector controlsE2Holder = PVector.add(vertexList.get(1).truePoints(), vertexList.get(2).truePoints());
+  controlsE2Holder.div(2);
+  controlsE2Holder.add(base/2,0,0);
+  controlsE2[0] = new Vertex(controlsE2Holder);
+  controlsE2[1] = new Vertex(controlsE2Holder);
+  vertexList.get(0).printVertex();
+  vertexList.get(1).printVertex();
+  vertexList.get(2).printVertex();
+  Edge E2 = new Edge(vertexList.get(1), vertexList.get(2), controlsE2);// essa
+  Edge E3 = new Edge(vertexList.get(2), vertexList.get(3));
+  Edge E4 = new Edge(vertexList.get(3), vertexList.get(4));
+  Edge E5 = new Edge(vertexList.get(4), vertexList.get(5));// essa
+  Edge E6 = new Edge(vertexList.get(5), vertexList.get(6));
+  Edge E7 = new Edge(vertexList.get(6), vertexList.get(7));// essa
+  Edge E8 = new Edge(vertexList.get(7), vertexList.get(8));
+  Edge E9 = new Edge(vertexList.get(8), vertexList.get(9));
+  Edge E10 = new Edge(vertexList.get(9), vertexList.get(10));
+  Edge E11 = new Edge(vertexList.get(10), vertexList.get(0));// essa
+  
+  Edge[] edges = { E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11 };
   
   //Centering object in screean
   center = new Vertex( origin[0], origin[1] );

@@ -1,7 +1,7 @@
 class Edge {
   public Vertex A;
   public Vertex B;
-  private Vertex[] controls;
+  public Vertex[] controls;
   
   public Edge(Vertex A, Vertex B){
     this.A = A;
@@ -23,7 +23,16 @@ class Edge {
   }
   
   public Edge clone(){
-    return new Edge(A.clone(), B.clone());
+    Vertex[] vertexHolder;
+    if(controls != null){
+      vertexHolder = new Vertex[2];
+      vertexHolder[0] = controls[0].clone();
+      vertexHolder[1] = controls[1].clone();
+    }
+    else{
+      vertexHolder = null;
+    }
+    return new Edge(A.clone(), B.clone(), vertexHolder);
   }
   
   public void draw(){
@@ -34,10 +43,11 @@ class Edge {
     B.add(center);
     if(controls != null){
       for(int i=0; i<controls.length; i++){
-        controls[0].add(center);
+        controls[i].add(center);
       }
     }
     if(controls != null){
+      // ellipse(controls[0].x, controls[0].y, 5, 5);
       bezier(A.x, A.y, A.z, controls[0].x, controls[0].y, controls[0].z, controls[1].x, controls[1].y, controls[1].z, B.x, B.y, B.z);
     }
     else{
@@ -47,7 +57,7 @@ class Edge {
     B.sub(center);
     if(controls != null){
       for(int i=0; i<controls.length; i++){
-        controls[0].add(center);
+        controls[i].sub(center);
       }
     }
   }
@@ -56,7 +66,7 @@ class Edge {
     A.rotate(theta);
     if(controls != null){
       for(int i=0; i<controls.length; i++){
-        controls[0].rotate(theta);
+        controls[i].rotate(theta);
       }
     }
   }
