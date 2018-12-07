@@ -91,9 +91,6 @@ void setup(){
   controlsE2Holder.add(base/2,0,0);
   controlsE2[0] = new Vertex(controlsE2Holder);
   controlsE2[1] = new Vertex(controlsE2Holder);
-  vertexList.get(0).printVertex();
-  vertexList.get(1).printVertex();
-  vertexList.get(2).printVertex();
   Edge E2 = new Edge(vertexList.get(1), vertexList.get(2), controlsE2);// essa
   Edge E3 = new Edge(vertexList.get(2), vertexList.get(3));
   Edge E4 = new Edge(vertexList.get(3), vertexList.get(4));
@@ -103,7 +100,13 @@ void setup(){
   Edge E8 = new Edge(vertexList.get(7), vertexList.get(8));
   Edge E9 = new Edge(vertexList.get(8), vertexList.get(9));
   Edge E10 = new Edge(vertexList.get(9), vertexList.get(10));
-  Edge E11 = new Edge(vertexList.get(10), vertexList.get(0));// essa
+  Vertex[] controlsE11 = new Vertex[2];
+  PVector controlsE11Holder = PVector.add(vertexList.get(10).truePoints(), vertexList.get(0).truePoints());
+  controlsE11Holder.div(2);
+  controlsE11Holder.add(-base/2,0,0);
+  controlsE11[0] = new Vertex(controlsE11Holder);
+  controlsE11[1] = new Vertex(controlsE11Holder);
+  Edge E11 = new Edge(vertexList.get(10), vertexList.get(0), controlsE11);// essa
   
   Edge[] edges = { E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11 };
   
