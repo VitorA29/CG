@@ -84,6 +84,15 @@ void setup(){
     ver.sub(center);
   }
   
+  Vertex[] c3 = {new Vertex(vertexList.get(2).x,vertexList.get(2).y+8), new Vertex(vertexList.get(3).x, vertexList.get(3).y+8)};
+  Vertex[] c4 = {new Vertex(vertexList.get(3).x,vertexList.get(3).y-10), new Vertex(vertexList.get(4).x, vertexList.get(4).y-10)};
+  Vertex[] c5 = {new Vertex(vertexList.get(4).x,vertexList.get(4).y-10), new Vertex(vertexList.get(5).x, vertexList.get(4).y-10)};
+  Vertex[] c6 = {new Vertex(vertexList.get(5).x,vertexList.get(5).y+10), new Vertex(vertexList.get(6).x, vertexList.get(6).y+10)};
+  Vertex[] c7 = {new Vertex(vertexList.get(6).x,vertexList.get(6).y+10), new Vertex(vertexList.get(7).x, vertexList.get(7).y+10)};
+  Vertex[] c8 = {new Vertex(vertexList.get(7).x,vertexList.get(7).y-10), new Vertex(vertexList.get(8).x, vertexList.get(8).y-10)};
+  Vertex[] c9 = {new Vertex(vertexList.get(8).x,vertexList.get(8).y-10), new Vertex(vertexList.get(9).x, vertexList.get(9).y-10)};
+  Vertex[] c10 = {new Vertex(vertexList.get(9).x,vertexList.get(9).y+8), new Vertex(vertexList.get(10).x, vertexList.get(10).y+8)};
+  
   Edge E1 = new Edge(vertexList.get(0), vertexList.get(1));
   Vertex[] controlsE2 = new Vertex[2];
   PVector controlsE2Holder = PVector.add(vertexList.get(1).truePoints(), vertexList.get(2).truePoints());
@@ -92,14 +101,14 @@ void setup(){
   controlsE2[0] = new Vertex(controlsE2Holder);
   controlsE2[1] = new Vertex(controlsE2Holder);
   Edge E2 = new Edge(vertexList.get(1), vertexList.get(2), controlsE2);// essa
-  Edge E3 = new Edge(vertexList.get(2), vertexList.get(3));
-  Edge E4 = new Edge(vertexList.get(3), vertexList.get(4));
-  Edge E5 = new Edge(vertexList.get(4), vertexList.get(5));// essa
-  Edge E6 = new Edge(vertexList.get(5), vertexList.get(6));
-  Edge E7 = new Edge(vertexList.get(6), vertexList.get(7));// essa
-  Edge E8 = new Edge(vertexList.get(7), vertexList.get(8));
-  Edge E9 = new Edge(vertexList.get(8), vertexList.get(9));
-  Edge E10 = new Edge(vertexList.get(9), vertexList.get(10));
+  Edge E3 = new Edge(vertexList.get(2), vertexList.get(3),c3);
+  Edge E4 = new Edge(vertexList.get(3), vertexList.get(4),c4);
+  Edge E5 = new Edge(vertexList.get(4), vertexList.get(5),c5);// essa
+  Edge E6 = new Edge(vertexList.get(5), vertexList.get(6),c6);
+  Edge E7 = new Edge(vertexList.get(6), vertexList.get(7),c7);// essa
+  Edge E8 = new Edge(vertexList.get(7), vertexList.get(8),c8);
+  Edge E9 = new Edge(vertexList.get(8), vertexList.get(9),c9);
+  Edge E10 = new Edge(vertexList.get(9), vertexList.get(10),c10);
   Vertex[] controlsE11 = new Vertex[2];
   PVector controlsE11Holder = PVector.add(vertexList.get(10).truePoints(), vertexList.get(0).truePoints());
   controlsE11Holder.div(2);
