@@ -1,4 +1,3 @@
-CgObject um;
 Face face;
 Vertex observer;
 Vertex light;
@@ -100,13 +99,7 @@ void setup(){
   //Centering object in screean
   center = new Vertex( origin[0], origin[1] );
   
-  //Object referential alteration
-  for(Vertex ver : vertexList){
-    ver.add(center);
-  }
-  
   face = new Face( edges, center.truePoints() );
-  um = new CgObject(face, base);
   observer = new Vertex(origin[0], origin[1], 100);
   light = new Vertex( origin[0] + 100, origin[1]-100, 200);
   //light = new Vertex( 200, origin[1]-100, 100);
@@ -114,9 +107,8 @@ void setup(){
 
 void draw(){
     background(255);
-    if(elapsed_frames <= 0/*max_frames*/){
-      println("rotation");
-      face.rotate(PI/2);
+    if(elapsed_frames <= max_frames){
+      face.rotate(omega);
     }
     face.drawCurve();
     //um.draw(); //Forma 1

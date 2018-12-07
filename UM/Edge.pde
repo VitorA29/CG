@@ -21,13 +21,17 @@ class Edge {
   public void draw(){
     line(A.x, A.y, A.z, B.x, B.y, B.z);
   }
-  public void drawCurve(){
+  public void drawCurve(PVector center){
+    A.add(center.x, center.y);
     Vertex c1 = A.clone();
+    B.add(center.x, center.y);
     Vertex c2 = B.clone();
     bezier(A.x, A.y, A.z, c1.x, c1.y, c1.z, c2.x, c2.y, c2.z, B.x, B.y, B.z);
+    A.sub(center.x, center.y);
+    B.sub(center.x, center.y);
   }
   
-  public void rotate(float theta, PVector center){
-    A.rotate(theta, center);
+  public void rotate(float theta){
+    A.rotate(theta);
   }
 }

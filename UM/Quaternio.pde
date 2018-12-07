@@ -8,11 +8,11 @@ class Quaternio{
  }
  
  public Quaternio prod(Quaternio qtn){
-  float ResultScalar = this.scalar*qtn.scalar + this.vector.dot(qtn.vector);
-  PVector ResultVector = PVector.mult(qtn.vector, this.scalar);
-  ResultVector = PVector.add(PVector.mult(this.vector, qtn.scalar), vector);
-  ResultVector = PVector.add(this.vector.cross(qtn.vector), vector);
-  return new Quaternio(ResultScalar, ResultVector);
+  float resultScalar = this.scalar*qtn.scalar + this.vector.dot(qtn.vector);
+  PVector resultVector = PVector.mult(qtn.vector, this.scalar);
+  resultVector = PVector.add(PVector.mult(this.vector, qtn.scalar), resultVector);
+  resultVector = PVector.add(this.vector.cross(qtn.vector), resultVector);
+  return new Quaternio(resultScalar, resultVector);
  }
  public PVector getVector(){
    return vector;

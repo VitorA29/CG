@@ -87,10 +87,10 @@ class Vertex{
   }
   
   public void rotate(float theta){
-    Quaternio p = new Quaternio(0, this.vec);
+    Quaternio p = new Quaternio(0, this.vec.copy());
     PVector n = new PVector(0,0,1);
-    Quaternio q = new Quaternio(cos(theta/2), n.mult(sin(theta/2)));
-    Quaternio qConj = new Quaternio(cos(theta/2), n.mult(-sin(theta/2))); 
+    Quaternio q = new Quaternio(cos(theta/2), PVector.mult(n, sin(theta/2)));
+    Quaternio qConj = new Quaternio(cos(theta/2), PVector.mult(n, -sin(theta/2))); 
     this.vec = q.prod(p).prod(qConj).getVector();
     project();
   }

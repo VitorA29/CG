@@ -62,7 +62,7 @@ class Face{
   
   public void drawCurve(){
     for(int i=0; i<edges.length; i++){
-      edges[i].drawCurve();
+      edges[i].drawCurve(center);
     }
   }
   
@@ -84,7 +84,7 @@ class Face{
   
   public void rotate(float theta){
     for(int i=0; i<edges.length; i++){
-      edges[i].rotate(theta, center);
+      edges[i].rotate(theta);
     }
   }
 }
