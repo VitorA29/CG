@@ -1,7 +1,7 @@
 class Face{
   public Edge[] edges;
   public PShape shape;
-  private PVector center;
+  public PVector center;
   
   public Face(Edge[] edges, PVector center){
     this.edges = edges;
@@ -89,13 +89,14 @@ class Face{
   }
   
   public Face shift(float z){
-    ArrayList<Edge> newEdges = new ArrayList<Edge>();
+    Edge[] newEdges = new Edge[edges.length];
     for(int i=0; i<edges.length; i++){
-      newEdges.add(edges[i].clone());
-      newEdges.get(i).A.add(0, 0, z);
+      newEdges[i] = edges[i].clone();
+      newEdges[i].A.add(0, 0, z);
+      newEdges[i].B.add(0, 0, z);
     }
     PVector newCenter = center.copy();
     newCenter.z += z;
-    return new Face((Edge[])newEdges.toArray(), newCenter);
+    return new Face(newEdges, newCenter);
   }
 }

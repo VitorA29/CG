@@ -1,5 +1,6 @@
 CgObject um;
 Face face;
+float base;
 Vertex observer;
 Vertex light;
 int points;
@@ -44,7 +45,7 @@ void setup(){
   teta = PI/3;
   omega = (2*PI)/max_frames;
   
-  float base = size/2;
+  base = size/2;
   
   //Object Contruction
   ArrayList<Vertex> vertexList = new ArrayList<Vertex>();
@@ -101,7 +102,8 @@ void setup(){
   center = new Vertex( origin[0], origin[1] );
   
   face = new Face( edges, center.truePoints() );
-  um = new CgObject(face, base);
+  Face[] facesArray = { face };
+  um = new CgObject(facesArray);
   observer = new Vertex(origin[0], origin[1], 100);
   light = new Vertex( origin[0] + 100, origin[1]-100, 200);
   //light = new Vertex( 200, origin[1]-100, 100);
@@ -112,7 +114,7 @@ void draw(){
     if(elapsed_frames <= max_frames){
       face.rotate(omega);
     }
-    face.drawWire();
+    um.drawWire(base);
     //um.draw(); //Forma 1
     //um.draw(observer.truePoints()); //Forma 2
     //um.drawAndPaint(observer.truePoints(), light); //Forma 3

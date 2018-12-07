@@ -69,4 +69,21 @@ class CgObject{
         faces[i].drawAndPaint(light);
     }
   }
+  
+  public void rotate(float theta){
+    faces[0].rotate(theta);
+  }
+  
+  public void drawWire(float z){
+    Face shifted = faces[0].shift(z);
+    faces[0].drawCurve();
+    shifted.drawCurve();
+    for(int index=0; index<faces[0].edges.length; index++){
+      faces[0].edges[index].A.add(faces[0].center);
+      shifted.edges[index].A.add(shifted.center);
+      line(faces[0].edges[index].A.x, faces[0].edges[index].A.y, faces[0].edges[index].A.z, shifted.edges[index].A.x, shifted.edges[index].A.y, shifted.edges[index].A.z);
+      faces[0].edges[index].A.sub(faces[0].center);
+      shifted.edges[index].A.sub(shifted.center);
+    }
+  }
 }

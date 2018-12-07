@@ -46,6 +46,11 @@ class Vertex{
     project();
   }
   
+  public void add(PVector v){
+    vec.add(v);
+    project();
+  }
+  
   public void add(float x, float y){
     vec.x += x;
     vec.y += y;
@@ -61,6 +66,11 @@ class Vertex{
   
   public void sub(Vertex v){
     vec.sub(v.vec);
+    project();
+  }
+  
+  public void sub(PVector v){
+    vec.sub(v);
     project();
   }
   
